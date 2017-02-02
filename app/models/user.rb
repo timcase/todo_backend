@@ -2,6 +2,10 @@ class User < ApplicationRecord
   has_secure_password
   validates :email, format: { with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/ }
 
+  def jwt
+    Knock::AuthToken.new(payload: { sub: id }).token
+  end
+
   def generate_json_api_error
     json_error = {"errors": []}
     errors.messages.each do |err_type, messages|
