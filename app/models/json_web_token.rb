@@ -1,8 +1,8 @@
 class JsonWebToken
   class << self
-    def encode(payload, expiration = nil)
-      payload = payload.dup
-      payload['exp'] = expiration
+    def encode(user, expiration = nil)
+      payload = user.to_token_payload
+      payload[:exp] = expiration
 
       JWT.encode payload, Rails.application.secrets.jwt_secret
     end
