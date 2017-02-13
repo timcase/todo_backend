@@ -1,4 +1,4 @@
-class JsonWebToken
+class JWTWrapper
   class << self
     def encode(user, expiration = nil)
       payload = user.to_token_payload
