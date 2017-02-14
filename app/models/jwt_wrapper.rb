@@ -1,8 +1,7 @@
 class JWTWrapper
   class << self
-    def encode(user, expiration = nil)
+    def encode(user)
       payload = user.to_token_payload
-      payload[:exp] = expiration
 
       JWT.encode payload, Rails.application.secrets.jwt_secret
     end
