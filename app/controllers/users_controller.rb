@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   # include ErrorSerializer
-  skip_before_action :authenticate_user!, only: [:create]
+  skip_before_action :authenticate_user, only: [:create]
+
   def index
     render json: User.all
   end
@@ -12,10 +13,9 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      render json: {jwt: JWTWrapper.encode(user)}.to_json, status: :created
+      render json: Knock::AuthToken.new(payload: user.to_token_payload), status: :created
     else
-      render json: {error: 'oops'}, status: :unprocessable_entity
-      # render json: ErrorSerializer.serialize(user.errors), status: 422
+      render json: ErrorSerializer.serialize(user.errors), status: :unprocessable_entity
     end
   end
 
