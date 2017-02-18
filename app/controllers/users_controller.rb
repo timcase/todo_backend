@@ -1,9 +1,17 @@
 class UsersController < ApplicationController
   # include ErrorSerializer
-  skip_before_action :authenticate_user, only: [:create]
-
+  skip_before_action :authenticate_user, only: [:create, :search]
   def index
     render json: User.all
+  end
+
+  def search
+    user = User.where(email: params[:email]).first
+    if user
+      render json: user, status: :found
+    else
+      head :not_found
+    end
   end
 
   def show
