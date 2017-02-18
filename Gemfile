@@ -23,7 +23,7 @@ gem 'active_model_serializers'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'devise'
+gem 'knock'
 gem 'jwt'
 
 group :development, :test do
