@@ -3,7 +3,7 @@ class TodosController < ApplicationController
 
   # GET /todos
   def index
-    @todos = current_user.todos
+    @todos = scope.todos
 
     render json: @todos
   end
@@ -15,7 +15,7 @@ class TodosController < ApplicationController
 
   # POST /todos
   def create
-    @todo = current_user.todos.build(todo_params)
+    @todo = scope.todos.build(todo_params)
 
     if @todo.save
       render json: @todo, status: :created, location: @todo
@@ -38,10 +38,19 @@ class TodosController < ApplicationController
     @todo.destroy
   end
 
+  def scope
+    @scope ||= find_scope
+  end
+
+  def find_scope
+    return User.find(params[:user_id]) if params[:user_id]
+    return Department.find(params[:department_id]) if params[:department_id]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_todo
-      @todo = current_user.todos.find(params[:id])
+      @todo = scope.todos.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
