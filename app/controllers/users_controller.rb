@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+    user.department = Department.first
     if user.save
       render json: Knock::AuthToken.new(payload: user.to_token_payload), status: :created
     else

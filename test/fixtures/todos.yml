@@ -1,9 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  text: MyText
+  id: 1
+  text: Bob goes to the market
   completed: false
+  user_id: 1
+  tag: 'inbox'
 
 two:
-  text: MyText
+  id: 2
+  text: Tom has roast beef
   completed: false
+  user_id: 2
+  tag: 'inbox'
+
+three:
+  id: 3
+  text: Bob visits a friend
+  completed: false
+  user_id: 1
+  tag: 'inbox'
