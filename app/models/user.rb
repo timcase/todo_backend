@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  belongs_to :department
   has_secure_password
-  has_many :todos
+  has_many :departments
+  has_many :todos, through: :departments
 
   def to_token_payload
     {sub: self.id, user_name: self.email}

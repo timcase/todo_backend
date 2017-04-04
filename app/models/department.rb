@@ -1,4 +1,7 @@
 class Department < ApplicationRecord
   has_many :users
-  has_many :todos, through: :users
+
+  def todos
+    users.map(&:todos)
+  end
 end

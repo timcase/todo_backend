@@ -1,9 +1,10 @@
 class DepartmentsController < ApplicationController
+  skip_before_action :authenticate_user, only: [:index, :search]
   before_action :set_department, only: [:show, :update, :destroy]
 
   # GET /departments
   def index
-    @departments = Department.all
+    @departments = Department.includes(:todos).all
 
     render json: @departments
   end

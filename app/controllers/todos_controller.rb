@@ -20,6 +20,7 @@ class TodosController < ApplicationController
     if @todo.save
       render json: @todo, status: :created, location: @todo
     else
+      debugger
       render json: @todo.errors, status: :unprocessable_entity
     end
   end
