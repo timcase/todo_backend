@@ -51,7 +51,11 @@ class TodosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_todo
-      @todo = scope.todos.find(params[:id])
+      if params[:user_id].nil? and params[:department_id].nil?
+        @todo = Todo.find(params[:id])
+      else
+        @todo = scope.todos.find(params[:id])
+      end
     end
 
     # Only allow a trusted parameter "white list" through.
